@@ -5,10 +5,15 @@ import {
   MessageOutlined,
 } from "@ant-design/icons";
 import { Container, Perk } from "./Styled/OnboardingLeftStyled";
+import Notification from "./Notification";
 
-const OnboardingLeft = ({ type }) => {
+const OnboardingLeft = () => {
   return (
     <Container>
+      <Notification
+        type="info"
+        description="By using Tweeter's services you agree to our Cookie Use and Data Transfer outside the EU. We and our partners operate globally and use cookis, including for analytics, personalization, and ads."
+      />
       <Perk>
         <SearchOutlined className="perk-icon" />
         <h2>Follow your interests.</h2>
