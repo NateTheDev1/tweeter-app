@@ -17,7 +17,7 @@ const Notification = (props) => {
         pauseOnHover
         style={{ width: "35%", lineHeight: 2, fontSize: "1rem" }}
       >
-        {toast.info(props.description)}
+        {toast[props.type](props.description)}
       </ToastContainer>
     </div>
   );

@@ -7,9 +7,9 @@ const SignUp = (props) => {
     <div style={{ display: "flex", alignItems: "center" }}>
       <OnboardingLeft />
       <OnboardingForm
-        button="Get Started"
-        title="Join Tweeter today."
-        action="Have an account?"
+        button="Log In"
+        title="Welcome back."
+        action="Don't have an account?"
       />
     </div>
   );

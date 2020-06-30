@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import crowLogo from "../images/crowLogo.png";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { registerUser } from "../actions/authActions";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
 const Container = styled.form`
   display: flex;
@@ -56,7 +59,7 @@ const FormDiv = styled.div`
     border-radius: 5px;
     font-family: "Mukta", sans-serif;
     font-size: 1rem;
-    margin-bottom: 3%;
+    margin-bottom: 5%;
   }
 
   && button {
@@ -107,8 +110,26 @@ const OnboardingForm = (props) => {
   const { register, handleSubmit, watch, errors } = useForm();
   const history = useHistory();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    if (props.action === "Have an account?") {
+      const res = await props.registerUser(data);
+      if (res === "OK") {
+        toast.success("Thank you for signing up! You are now logged in!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          history.push("/home");
+        }, 2000);
+      }
+    } else {
+      //console.log(values)
+    }
   };
 
   const handleSwitch = () => {
@@ -129,6 +150,7 @@ const OnboardingForm = (props) => {
         <h3>{props.title}</h3>
       </TitleDiv>
       <FormDiv>
+        {props.error.length > 0 && <Error>{props.error}</Error>}
         <input
           name="email"
           type="email"
@@ -166,4 +188,11 @@ const OnboardingForm = (props) => {
   );
 };
 
-export default OnboardingForm;
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.isAuth,
+    error: state.authReducer.error,
+  };
+};
+
+export default connect(mapStateToProps, { registerUser })(OnboardingForm);
