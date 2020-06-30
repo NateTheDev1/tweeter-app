@@ -4,9 +4,13 @@ import OnboardingForm from "../components/OnboardingForm";
 
 const SignUp = () => {
   return (
-    <div>
+    <div style={{ display: "flex", alignItems: "center" }}>
       <OnboardingLeft />
-      <OnboardingForm />
+      <OnboardingForm
+        button="Get Started"
+        title="Join Tweeter today."
+        action="Have an account?"
+      />
     </div>
   );
 };
