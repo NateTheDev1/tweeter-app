@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import crowLogo from "../images/crowLogo.png";
 import { useHistory } from "react-router-dom";
-import { registerUser } from "../actions/authActions";
+import { registerUser, loginUser } from "../actions/authActions";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -128,7 +128,21 @@ const OnboardingForm = (props) => {
         }, 2000);
       }
     } else {
-      //console.log(values)
+      const res = await props.loginUser(data);
+      if (res === "OK") {
+        toast.success("Rock On! You have been logged in.", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          history.push("/home");
+        }, 2000);
+      }
     }
   };
 
@@ -195,4 +209,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { registerUser })(OnboardingForm);
+export default connect(mapStateToProps, { registerUser, loginUser })(
+  OnboardingForm
+);
