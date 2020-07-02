@@ -5,8 +5,11 @@ import {
   LOGIN_OK,
   LOGIN_START,
   LOGIN_FAIL,
+  SET_USER,
+  LOADING,
 } from "./types";
 import axios from "axios";
+import jwt from "jsonwebtoken";
 
 export const registerUser = (formValues) => (dispatch) => {
   dispatch({ type: REGISTER_START });
@@ -34,5 +37,22 @@ export const loginUser = (formValues) => (dispatch) => {
     })
     .catch(async (err) => {
       await dispatch({ type: LOGIN_FAIL, error: err.response.data });
+    });
+};
+
+export const getUser = (token) => async (dispatch) => {
+  console.log("Anyone?");
+  await dispatch({ type: LOADING, payload: true });
+  let decoded = await jwt.decode(token);
+  let uid = decoded._id;
+  axios
+    .get(`https://tweeter-app-api.herokuapp.com/api/user/${uid}`)
+    .then(async (res) => {
+      await dispatch({ type: SET_USER, payload: res.data });
+      await dispatch({ type: LOADING, payload: false });
+    })
+    .catch(async (err) => {
+      await alert(err.response.data);
+      await dispatch({ type: LOADING, payload: false });
     });
 };

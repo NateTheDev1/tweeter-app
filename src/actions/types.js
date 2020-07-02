@@ -8,3 +8,4 @@ export const REGISTER_OK = "REGISTER_OK";
 export const ADD_NOTE = "ADD_NOTE";
 export const ADD_NOTE_START = "ADD_NOTE_START";
 export const LOGOUT = "LOGOUT";
+export const SET_USER = "SET_USER";

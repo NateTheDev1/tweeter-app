@@ -8,7 +8,7 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        localStorage.getItem("token").length !== 0 && restricted ? (
+        localStorage.getItem("token") && restricted ? (
           <Redirect to="/home" />
         ) : (
           <Component {...props} />

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Modal, Button, Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Modal, Avatar } from "antd";
+import { UserOutlined, CameraOutlined } from "@ant-design/icons";
 import Axios from "axios";
+import { FileUpload, FormDiv } from "./Styled/NewUserModalStyled";
 
 const API_KEY = "827878474497588";
-const API_SECRET = "6LqsNiF_akkqXRaWUmAONP2wY18";
-const CLOUDINARY_URL =
-  "cloudinary://827878474497588:6LqsNiF_akkqXRaWUmAONP2wY18@tweeter";
 
 const NewUserModal = ({ open }) => {
   const handleSubmit = () => {};
@@ -33,9 +31,17 @@ const NewUserModal = ({ open }) => {
 
   return (
     <Modal
-      style={{ padding: "1%" }}
+      bodyStyle={{ height: "55vh" }}
       title={
-        <h1 style={{ fontSize: "2rem", fontWeight: 400 }}>
+        <h1
+          style={{
+            fontSize: "2rem",
+            fontWeight: 400,
+            marginTop: "2%",
+            marginBottom: "2%",
+            color: "#1DA1F2",
+          }}
+        >
           Create Your Profile
         </h1>
       }
@@ -43,23 +49,28 @@ const NewUserModal = ({ open }) => {
       footer={null}
       closable={false}
     >
-      <form>
-        <h3>Full Name</h3>
-        <input type="text" placeholder="John Doe" />
+      <FormDiv>
         <h3>Profile Image</h3>
-        <input
-          type="file"
-          accept="image/*"
-          disabled={imageLoading}
-          placeholder="Upload An Image"
-          onChange={handleImage}
-        />
         <Avatar
+          size={96}
           icon={image == null ? <UserOutlined /> : <img src={image} />}
-        ></Avatar>
+          style={{ marginBottom: "2%", marginTop: "2%" }}
+        />
+        <FileUpload>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImage}
+            style={{ border: "none" }}
+          />
+          Choose A Rock On Picture <CameraOutlined />
+        </FileUpload>
         <h3>Full Name</h3>
         <input type="text" placeholder="John Doe" />
-      </form>
+        <h3>Username</h3>
+        <input type="text" placeholder="john_doe" />
+        <button>Create Profile</button>
+      </FormDiv>
     </Modal>
   );
 };

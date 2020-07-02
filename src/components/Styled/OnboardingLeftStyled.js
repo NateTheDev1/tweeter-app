@@ -24,6 +24,7 @@ export const Perk = styled.div`
 
   && h2 {
     width: 50%;
+    color: white;
   }
 
   && .perk-icon {
