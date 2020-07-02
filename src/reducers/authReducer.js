@@ -7,6 +7,8 @@ import {
   REGISTER_FAIL,
   REGISTER_OK,
   SET_USER,
+  PROFILE_OK,
+  PROFILE_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
   isAuth: localStorage.getItem("token") ? true : false,
   authorizing: false,
   error: "",
+  profile: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -46,6 +49,10 @@ const authReducer = (state = initialState, action) => {
       };
     case SET_USER:
       return { ...state, user: action.payload };
+    case PROFILE_OK:
+      return { ...state, profile: action.payload, error: "" };
+    case PROFILE_FAIL:
+      return { ...state, error: action.error };
     default:
       return { ...state };
   }

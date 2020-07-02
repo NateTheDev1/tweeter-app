@@ -7,6 +7,8 @@ import {
   LOGIN_FAIL,
   SET_USER,
   LOADING,
+  PROFILE_OK,
+  PROFILE_FAIL,
 } from "./types";
 import axios from "axios";
 import jwt from "jsonwebtoken";
@@ -54,5 +56,21 @@ export const getUser = (token) => async (dispatch) => {
     .catch(async (err) => {
       await alert(err.response.data);
       await dispatch({ type: LOADING, payload: false });
+    });
+};
+
+export const newProfile = (formValues, userId) => (dispatch) => {
+  return axios
+    .post(
+      `https://tweeter-app-api.herokuapp.com/api/user/profile/${userId}`,
+      formValues
+    )
+    .then(async (res) => {
+      await dispatch({ type: PROFILE_OK, payload: res.data });
+      return "OK";
+    })
+    .catch(async (err) => {
+      await dispatch({ type: PROFILE_FAIL, error: err.response.data });
+      return "BAD";
     });
 };

@@ -9,3 +9,5 @@ export const ADD_NOTE = "ADD_NOTE";
 export const ADD_NOTE_START = "ADD_NOTE_START";
 export const LOGOUT = "LOGOUT";
 export const SET_USER = "SET_USER";
+export const PROFILE_FAIL = "PROFILE_FAIL";
+export const PROFILE_OK = "PROFILE_OK";
