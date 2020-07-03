@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { getUser, getProfile } from "../actions/authActions";
 import HomeScreen from "../components/HomeScreen";
-import { useHistory, Redirect } from "react-router-dom";
+import styled from "styled-components";
 
 class Home extends React.Component {
   constructor(props) {

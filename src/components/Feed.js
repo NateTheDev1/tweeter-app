@@ -7,14 +7,14 @@ const Container = styled.div`
   flex-direction: column;
   height: 100vh;
   font-family: "Mukta", sans-serif;
-  border: 5px solid #f8f9fa;
+  border: 1px solid #e6ecf0;
 
   && .header {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    border-bottom: 3px solid #f8f9fa;
+    border-bottom: 1px solid #e6ecf0;
     height: 5vh;
     width: 100%;
 
