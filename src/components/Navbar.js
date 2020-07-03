@@ -8,7 +8,7 @@ import {
   BellOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Avatar } from "antd";
+import { Avatar, Badge } from "antd";
 import { connect } from "react-redux";
 import { logout } from "../actions/authActions";
 
@@ -101,12 +101,14 @@ const Navbar = ({ profile, logout }) => {
         </div>
       </div>
       <div className="profile-ref">
-        <Avatar
-          size={64}
-          icon={
-            !profile.avatar ? <UserOutlined /> : <img src={profile.avatar} />
-          }
-        />
+        <Badge status="success">
+          <Avatar
+            size={64}
+            icon={
+              !profile.avatar ? <UserOutlined /> : <img src={profile.avatar} />
+            }
+          />
+        </Badge>
         <p>@{profile.username}</p>
       </div>
     </Nav>

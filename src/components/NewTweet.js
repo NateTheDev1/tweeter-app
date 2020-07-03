@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Avatar, Input, Button } from "antd";
+import { Avatar, Input, Button, Tooltip } from "antd";
 import {
   UserOutlined,
   FileImageOutlined,
@@ -129,27 +129,31 @@ const NewTweet = ({ profile }) => {
               fontSize: "1.2rem",
             }}
           >
-            <DeleteOutlined
-              style={{ marginRight: "3%", fontSize: "1.8rem" }}
-              onClick={() => setImage(null)}
-            />
+            <Tooltip placement="top" title="Remove Image">
+              <DeleteOutlined
+                style={{ marginRight: "3%", fontSize: "1.8rem" }}
+                onClick={() => setImage(null)}
+              />
+            </Tooltip>
           </div>
         )}
         {image === null && (
-          <FileUpload
-            style={{ width: "4%", marginBottom: 0, marginRight: "5%" }}
-          >
-            <input
-              type="file"
-              accept="image/*"
-              style={{
-                border: "none",
-                display: image !== null ? "none" : null,
-              }}
-              onChange={handleImage}
-            />
-            <FileImageOutlined style={{ fontSize: "1.8rem" }} />
-          </FileUpload>
+          <Tooltip placement="top" title="Add Image">
+            <FileUpload
+              style={{ width: "4%", marginBottom: 0, marginRight: "5%" }}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                style={{
+                  border: "none",
+                  display: image !== null ? "none" : null,
+                }}
+                onChange={handleImage}
+              />
+              <FileImageOutlined style={{ fontSize: "1.8rem" }} />
+            </FileUpload>
+          </Tooltip>
         )}
         <button>Tweet</button>
       </div>
