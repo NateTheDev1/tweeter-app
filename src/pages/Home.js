@@ -2,7 +2,9 @@ import React from "react";
 import NewUserModal from "../components/NewUserModal";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { getUser } from "../actions/authActions";
+import { getUser, getProfile } from "../actions/authActions";
+import HomeScreen from "../components/HomeScreen";
+import { useHistory, Redirect } from "react-router-dom";
 
 class Home extends React.Component {
   constructor(props) {
@@ -11,10 +13,12 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.user === null) {
-      const token = localStorage.getItem("token");
-      this.props.getUser(token);
-    }
+    console.log("Mounting");
+    const token = localStorage.getItem("token");
+
+    this.props.getUser(token);
+
+    this.props.getProfile(token);
   }
 
   setToast = (res) => {
@@ -61,7 +65,7 @@ class Home extends React.Component {
             handleModal={this.handleModal}
           />
         ) : (
-          <h1>HOME SCREEN WITH PROFILE</h1>
+          <HomeScreen />
         )}
       </div>
     );
@@ -73,7 +77,8 @@ const mapStateToProps = (state) => {
     user: state.authReducer.user,
     loading: state.globalReducer.loading,
     error: state.authReducer.error,
+    profile: state.authReducer.profile,
   };
 };
 
-export default connect(mapStateToProps, { getUser })(Home);
+export default connect(mapStateToProps, { getUser, getProfile })(Home);

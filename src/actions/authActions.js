@@ -9,6 +9,8 @@ import {
   LOADING,
   PROFILE_OK,
   PROFILE_FAIL,
+  LOGOUT,
+  SET_PROFILE,
 } from "./types";
 import axios from "axios";
 import jwt from "jsonwebtoken";
@@ -43,7 +45,6 @@ export const loginUser = (formValues) => (dispatch) => {
 };
 
 export const getUser = (token) => async (dispatch) => {
-  console.log("Anyone?");
   await dispatch({ type: LOADING, payload: true });
   let decoded = await jwt.decode(token);
   let uid = decoded._id;
@@ -54,8 +55,20 @@ export const getUser = (token) => async (dispatch) => {
       await dispatch({ type: LOADING, payload: false });
     })
     .catch(async (err) => {
-      await alert(err.response.data);
       await dispatch({ type: LOADING, payload: false });
+    });
+};
+
+export const getProfile = (token) => async (dispatch) => {
+  let decoded = await jwt.decode(token);
+  let uid = decoded._id;
+  axios
+    .get(`https://tweeter-app-api.herokuapp.com/api/user/profile/${uid}`)
+    .then((res) => {
+      dispatch({ type: SET_PROFILE, payload: res.data });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -73,4 +86,11 @@ export const newProfile = (formValues, userId) => (dispatch) => {
       await dispatch({ type: PROFILE_FAIL, error: err.response.data });
       return "BAD";
     });
+};
+
+export const logout = () => async (dispatch) => {
+  await localStorage.clear();
+  await dispatch({ type: LOGOUT });
+
+  return "OK";
 };

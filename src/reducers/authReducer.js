@@ -9,6 +9,7 @@ import {
   SET_USER,
   PROFILE_OK,
   PROFILE_FAIL,
+  SET_PROFILE,
 } from "../actions/types";
 
 const initialState = {
@@ -49,10 +50,19 @@ const authReducer = (state = initialState, action) => {
       };
     case SET_USER:
       return { ...state, user: action.payload };
+    case SET_PROFILE:
+      return { ...state, profile: action.payload };
     case PROFILE_OK:
-      return { ...state, profile: action.payload, error: "" };
+      return {
+        ...state,
+        profile: action.payload,
+        error: "",
+        user: action.payload,
+      };
     case PROFILE_FAIL:
       return { ...state, error: action.error };
+    case LOGOUT:
+      return { ...initialState };
     default:
       return { ...state };
   }

@@ -11,9 +11,7 @@ function App() {
     <Switch>
       <PublicRoute restricted={true} exact path="/" component={SignUp} />
       <PublicRoute restricted={true} exact path="/login" component={Login} />
-      <Route exact path="/home">
-        <Home />
-      </Route>
+      <PrivateRoute exact path="/home" component={Home} />
     </Switch>
   );
 }

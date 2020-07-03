@@ -34,14 +34,13 @@ const NewUserModal = ({
   const onSubmit = async (data) => {
     const profile = {
       ...data,
-      avater: image,
+      avatar: image,
     };
     const res = await newProfile(profile, user._id);
     if (res === "OK") {
       setToast(res);
-      setTimeout(() => {
-        handleModal();
-      }, 2000);
+      handleModal();
+      window.location.reload();
     } else {
       setToast(res);
     }
