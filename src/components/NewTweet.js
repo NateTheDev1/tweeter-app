@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Avatar, Input } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Input, Button } from "antd";
+import {
+  UserOutlined,
+  FileImageOutlined,
+  ClearOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import { connect } from "react-redux";
+import { FileUpload } from "./Styled/NewUserModalStyled";
+
+import Axios from "axios";
+const API_KEY = "827878474497588";
 
 const Container = styled.div`
   width: 100%;
   padding: 2%;
-  display: flex;
-  align-items: center;
   border-bottom: 10px solid #e6ecf0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
 
   && .text-area {
@@ -34,25 +44,115 @@ const Container = styled.div`
   && .anticon-close-circle {
     font-size: 1.2rem;
   }
+
+  && button {
+    color: white;
+    background: #4693d9;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    padding: 2%;
+    width: 150px;
+    height: 40px;
+    border-radius: 25px;
+  }
+
+  && button:hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
 `;
 
 const NewTweet = ({ profile }) => {
+  const [image, setImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
   if (profile === null) {
     return null;
   }
 
+  const handleImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "tweeter");
+    data.append("api_key", API_KEY);
+    data.append("timestamp", Date.now());
+    setImageLoading(true);
+    const res = await Axios.post(
+      "https://api.cloudinary.com/v1_1/tweeter/image/upload",
+      data
+    );
+
+    setImage(res.data.url);
+    setImageLoading(false);
+  };
+
   return (
     <Container>
-      <Avatar
-        size={64}
-        icon={!profile.avatar ? <UserOutlined /> : <img src={profile.avatar} />}
+      <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+        <Avatar
+          size={64}
+          icon={
+            !profile.avatar ? <UserOutlined /> : <img src={profile.avatar} />
+          }
+        />
+        <Input.TextArea
+          placeholder="What's happening?"
+          allowClear
+          autoSize={{ maxRows: 3 }}
+          className="text-area"
+        ></Input.TextArea>
+      </div>
+      <img
+        style={{ borderRadius: "10px", marginTop: "5%", width: "100%" }}
+        src={image}
       />
-      <Input.TextArea
-        placeholder="What's happening?"
-        allowClear
-        autoSize={{ maxRows: 3 }}
-        className="text-area"
-      />
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          color: "#1DA1F2",
+          marginTop: "2%",
+          justifyContent: "flex-end",
+        }}
+      >
+        {image !== null && (
+          <div
+            style={{
+              marginRight: "5%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              justifyItems: "center",
+              color: "#DC3545",
+              fontSize: "1.2rem",
+            }}
+          >
+            <DeleteOutlined
+              style={{ marginRight: "3%", fontSize: "1.8rem" }}
+              onClick={() => setImage(null)}
+            />
+          </div>
+        )}
+        {image === null && (
+          <FileUpload
+            style={{ width: "4%", marginBottom: 0, marginRight: "5%" }}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              style={{
+                border: "none",
+                display: image !== null ? "none" : null,
+              }}
+              onChange={handleImage}
+            />
+            <FileImageOutlined style={{ fontSize: "1.8rem" }} />
+          </FileUpload>
+        )}
+        <button>Tweet</button>
+      </div>
     </Container>
   );
 };
