@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Avatar } from "antd";
 import { UserOutlined, HeartOutlined } from "@ant-design/icons";
+import Axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -69,6 +70,13 @@ const Container = styled.div`
 `;
 
 const Tweet = ({ tweet }) => {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    // Axios.get('')
+    // Create route to get a profile by id
+  }, []);
+
   return (
     <Container>
       <div style={{ display: "flex", alignItems: "flex-start" }}>
