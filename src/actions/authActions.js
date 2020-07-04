@@ -11,6 +11,8 @@ import {
   PROFILE_FAIL,
   LOGOUT,
   SET_PROFILE,
+  POST_OK,
+  FETCH_POSTS,
 } from "./types";
 import axios from "axios";
 import jwt from "jsonwebtoken";
@@ -93,4 +95,33 @@ export const logout = () => async (dispatch) => {
   await dispatch({ type: LOGOUT });
 
   return "OK";
+};
+
+export const createPost = (formValues) => async (dispatch) => {
+  const token = localStorage.getItem("token");
+  let userId = await jwt.decode(token);
+
+  return axios
+    .post(
+      `https://tweeter-app-api.herokuapp.com/api/posts/new/${userId._id}`,
+      formValues
+    )
+    .then(async (res) => {
+      await dispatch({ type: POST_OK, payload: res.data });
+      return "OK";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getAllPosts = () => (dispatch) => {
+  axios
+    .get("https://tweeter-app-api.herokuapp.com/api/posts/all")
+    .then((res) => {
+      dispatch({ type: FETCH_POSTS, payload: res.data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

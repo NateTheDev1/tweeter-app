@@ -9,11 +9,13 @@ import {
 } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { FileUpload } from "./Styled/NewUserModalStyled";
+import { createPost } from "../actions/authActions";
+import { useForm } from "react-hook-form";
 
 import Axios from "axios";
 const API_KEY = "827878474497588";
 
-const Container = styled.div`
+const Container = styled.form`
   width: 100%;
   padding: 2%;
   border-bottom: 10px solid #e6ecf0;
@@ -64,7 +66,14 @@ const Container = styled.div`
   }
 `;
 
-const NewTweet = ({ profile }) => {
+const Error = styled.p`
+  color: #f32013;
+  margin-top: 3%;
+  margin-bottom: 3%;
+`;
+
+const NewTweet = ({ profile, createPost }) => {
+  const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   if (profile === null) {
@@ -88,8 +97,23 @@ const NewTweet = ({ profile }) => {
     setImageLoading(false);
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const post = {
+      content,
+      image: image,
+    };
+
+    const res = await createPost(post);
+    if (res === "OK") {
+      setContent("");
+      setImage(null);
+      window.location.reload();
+    }
+  };
+
   return (
-    <Container>
+    <Container onSubmit={onSubmit}>
       <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
         <Avatar
           size={64}
@@ -102,7 +126,9 @@ const NewTweet = ({ profile }) => {
           allowClear
           autoSize={{ maxRows: 3 }}
           className="text-area"
-        ></Input.TextArea>
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
       </div>
       <img
         style={{ borderRadius: "10px", marginTop: "5%", width: "100%" }}
@@ -155,7 +181,12 @@ const NewTweet = ({ profile }) => {
             </FileUpload>
           </Tooltip>
         )}
-        <button>Tweet</button>
+        <button
+          type="submit"
+          disabled={content.length > 0 && content.length < 200 ? false : true}
+        >
+          Tweet
+        </button>
       </div>
     </Container>
   );
@@ -167,4 +198,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(NewTweet);
+export default connect(mapStateToProps, { createPost })(NewTweet);

@@ -10,6 +10,7 @@ import {
   PROFILE_OK,
   PROFILE_FAIL,
   SET_PROFILE,
+  POST_OK,
 } from "../actions/types";
 
 const initialState = {

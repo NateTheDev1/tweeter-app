@@ -1,6 +1,7 @@
 import { LOADING } from "../actions/types";
 import { combineReducers } from "redux";
 import authReducer from "./authReducer";
+import postReducer from "./postReducer";
 
 const initialState = {
   loading: false,
@@ -15,6 +16,10 @@ const globalReducer = (state = initialState, action) => {
   }
 };
 
-const indexReducer = combineReducers({ globalReducer, authReducer });
+const indexReducer = combineReducers({
+  globalReducer,
+  authReducer,
+  postReducer,
+});
 
 export default indexReducer;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, HeartOutlined } from "@ant-design/icons";
 
 const Container = styled.div`
   width: 100%;
@@ -43,6 +43,29 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
   }
+
+  && .tweet-links {
+    margin-top: 2%;
+  }
+
+  && .tweet-icon {
+    font-size: 1.4rem;
+    margin-right: 2%;
+  }
+
+  && .tweet-link:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    color: #dc3545;
+  }
+
+  && .tweet-link {
+    transition: 0.3s;
+    width: auto;
+    display: flex;
+    align-content: center;
+    font-size: 1rem;
+  }
 `;
 
 const Tweet = ({ tweet }) => {
@@ -56,11 +79,7 @@ const Tweet = ({ tweet }) => {
             <p>@{tweet.username}</p> • <p>27m</p>
           </div>
           <div className="tweet-content">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
+            <p>{tweet.content}</p>
             {tweet.image && (
               <img
                 src={tweet.image}
@@ -73,8 +92,11 @@ const Tweet = ({ tweet }) => {
                 }}
               />
             )}
-            <div>
-              
+            <div className="tweet-links">
+              <div className="tweet-link">
+                <HeartOutlined className="tweet-icon" />
+                {tweet.likedBy.length}
+              </div>
             </div>
           </div>
         </div>

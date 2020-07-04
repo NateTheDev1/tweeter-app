@@ -2,7 +2,7 @@ import React from "react";
 import NewUserModal from "../components/NewUserModal";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { getUser, getProfile } from "../actions/authActions";
+import { getUser, getProfile, getAllPosts } from "../actions/authActions";
 import HomeScreen from "../components/HomeScreen";
 import styled from "styled-components";
 
@@ -19,6 +19,7 @@ class Home extends React.Component {
     this.props.getUser(token);
 
     this.props.getProfile(token);
+    this.props.getAllPosts();
   }
 
   setToast = (res) => {
@@ -81,4 +82,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getUser, getProfile })(Home);
+export default connect(mapStateToProps, { getUser, getProfile, getAllPosts })(
+  Home
+);

@@ -12,3 +12,5 @@ export const SET_USER = "SET_USER";
 export const PROFILE_FAIL = "PROFILE_FAIL";
 export const PROFILE_OK = "PROFILE_OK";
 export const SET_PROFILE = "SET_PROFILE";
+export const POST_OK = "POST_OK";
+export const FETCH_POSTS = "FETCH_POSTS";

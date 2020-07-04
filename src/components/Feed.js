@@ -4,6 +4,7 @@ import NewTweet from "./NewTweet";
 import Tweet from "./Tweet";
 import { RedoOutlined } from "@ant-design/icons";
 import { Tooltip, Empty } from "antd";
+import { connect } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +41,11 @@ const Container = styled.div`
   }
 `;
 
-const Feed = () => {
+const Feed = ({ posts }) => {
+  const mapPosts = () => {
+    return posts.map((p) => <Tweet tweet={p} key={p._id} />);
+  };
+
   return (
     <Container>
       <div className="header">
@@ -51,26 +56,28 @@ const Feed = () => {
       </div>
       <NewTweet />
       <div>
-        {/* <Tweet
-          tweet={{
-            name: "Nathaniel Richards",
-            username: "NateTheDev",
-            image:
-              "https://pbs.twimg.com/media/Eb8eoWBXQAMaykF?format=jpg&name=small",
-          }}
-        /> */}
-        <Empty
-          style={{ marginTop: "5%" }}
-          imageStyle={{ height: 150 }}
-          description={
-            <span style={{ fontSize: "1.2rem" }}>
-              Nobody has made a post yet
-            </span>
-          }
-        />
+        {posts.length <= 0 ? (
+          <Empty
+            style={{ marginTop: "5%" }}
+            imageStyle={{ height: 150 }}
+            description={
+              <span style={{ fontSize: "1.2rem" }}>
+                Nobody has made a tweet yet
+              </span>
+            }
+          />
+        ) : (
+          mapPosts()
+        )}
       </div>
     </Container>
   );
 };
 
-export default Feed;
+const mapStateToProps = (state) => {
+  return {
+    posts: state.postReducer.posts,
+  };
+};
+
+export default connect(mapStateToProps, {})(Feed);
