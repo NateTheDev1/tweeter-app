@@ -43,6 +43,7 @@ const Container = styled.div`
 
 const Feed = ({ posts }) => {
   const mapPosts = () => {
+    console.log(posts);
     return posts.map((p) => <Tweet tweet={p} key={p._id} />);
   };
 

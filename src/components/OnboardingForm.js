@@ -193,7 +193,7 @@ const OnboardingForm = (props) => {
           <p>
             {props.action}{" "}
             <span onClick={handleSwitch}>
-              {props.action === "Have an account?" ? "Login In" : "Sign Up"}
+              {props.action === "Have an account?" ? "Login" : "Sign Up"}
             </span>
           </p>
         </SwitchDiv>

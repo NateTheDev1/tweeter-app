@@ -7,8 +7,7 @@ const initialState = {
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case POST_OK: {
-      state.posts.push(action.payload);
-      return { ...state };
+      return { ...state, posts: [action.payload, ...state.posts] };
     }
     case FETCH_POSTS:
       return { ...state, posts: action.payload };

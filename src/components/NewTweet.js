@@ -108,7 +108,6 @@ const NewTweet = ({ profile, createPost }) => {
     if (res === "OK") {
       setContent("");
       setImage(null);
-      window.location.reload();
     }
   };
 

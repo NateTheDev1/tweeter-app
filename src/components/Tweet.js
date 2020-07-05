@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Avatar } from "antd";
 import { UserOutlined, HeartOutlined } from "@ant-design/icons";
 import Axios from "axios";
+import Moment from "react-moment";
 
 const Container = styled.div`
   width: 100%;
@@ -10,27 +11,25 @@ const Container = styled.div`
   border-top: 1px solid #e6ecf0;
   border-bottom: 1px solid #e6ecf0;
 
-  width: 100%;
-
   && .tweet-top {
-    width: 60%;
-    justify-content: space-between;
-    align-items: center;
     display: flex;
+
+    align-items: center;
 
     & h2 {
       font-size: 1.2rem;
       font-weight: 700;
       color: black;
+      margin-right: 2%;
     }
 
     & p {
       color: gray;
+      margin-right: 2%;
     }
   }
 
   && .tweet-top-container {
-    width: 90%;
     margin-top: 1%;
     margin-left: 2%;
     display: flex;
@@ -70,21 +69,46 @@ const Container = styled.div`
 `;
 
 const Tweet = ({ tweet }) => {
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    // Axios.get('')
-    // Create route to get a profile by id
+    console.log(tweet);
+    Axios.get(
+      `https://tweeter-app-api.herokuapp.com/api/user/postprofile/${tweet.postedBy}`
+    )
+      .then((res) => {
+        console.log(res);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
+
+  if (data === null) {
+    return null;
+  }
 
   return (
     <Container>
       <div style={{ display: "flex", alignItems: "flex-start" }}>
-        <Avatar size={64} icon={<UserOutlined />} />
+        <Avatar
+          size={64}
+          icon={
+            data.avatar.length > 0 ? (
+              <img src={data.avatar} />
+            ) : (
+              <UserOutlined />
+            )
+          }
+        />
         <div className="tweet-top-container">
           <div className="tweet-top">
-            <h2>{tweet.name} </h2>
-            <p>@{tweet.username}</p> • <p>27m</p>
+            <h2>{data.fullName}</h2>
+            <p>@{data.username} </p>
+            <p>
+              <Moment fromNow>{tweet.createdAt}</Moment>
+            </p>
           </div>
           <div className="tweet-content">
             <p>{tweet.content}</p>
