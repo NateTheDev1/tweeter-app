@@ -18,7 +18,6 @@ const HomeScreen = ({ profile }) => {
   const [activePage, setActivePage] = useState();
 
   const pageContent = () => {
-    console.log(activePage);
     switch (activePage) {
       case "PROFILE":
         return <Profile />;

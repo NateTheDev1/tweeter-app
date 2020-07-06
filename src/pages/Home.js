@@ -15,7 +15,6 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    console.log("Mounting");
     const token = localStorage.getItem("token");
 
     this.props.getUser(token);

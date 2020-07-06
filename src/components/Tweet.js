@@ -78,16 +78,13 @@ const Tweet = ({ tweet, likePost, profile }) => {
   let [serverLikes, setServerLikes] = useState(tweet.likedBy.length);
 
   useEffect(() => {
-    console.log(tweet);
     Axios.get(
       `https://tweeter-app-api.herokuapp.com/api/user/postprofile/${tweet.postedBy}`
     )
       .then((res) => {
-        console.log(res);
         setData(res.data);
 
         for (let i = 0; i < tweet.likedBy.length; i++) {
-          console.log(tweet.likedBy);
           if (tweet.likedBy[i]._id === profile.account) {
             setLiked(true);
             break;
@@ -108,7 +105,7 @@ const Tweet = ({ tweet, likePost, profile }) => {
       setServerLikes((serverLikes -= 1));
     } else {
       setLiked(true);
-      console.log(data.account);
+
       likePost(tweet._id, profile.account);
       setServerLikes((serverLikes += 1));
     }

@@ -154,8 +154,6 @@ const OnboardingForm = (props) => {
     }
   };
 
-  console.log(watch("email"));
-
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
       <TitleDiv>
