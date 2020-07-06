@@ -11,9 +11,16 @@ const Container = styled.div`
   border-top: 1px solid #e6ecf0;
   border-bottom: 1px solid #e6ecf0;
 
+  && .tweet-top-container {
+    width: 100%;
+    margin-top: 1%;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+  }
+
   && .tweet-top {
     display: flex;
-
     align-items: center;
 
     & h2 {
@@ -29,14 +36,8 @@ const Container = styled.div`
     }
   }
 
-  && .tweet-top-container {
-    margin-top: 1%;
-    margin-left: 2%;
-    display: flex;
-    flex-direction: column;
-  }
-
   && .tweet-content {
+    height: 100%;
     color: black;
     line-height: 1.5;
     margin-top: 1%;
@@ -94,6 +95,7 @@ const Tweet = ({ tweet }) => {
       <div style={{ display: "flex", alignItems: "flex-start" }}>
         <Avatar
           size={64}
+          style={{ minWidth: "64px" }}
           icon={
             data.avatar.length > 0 ? (
               <img src={data.avatar} />
@@ -116,7 +118,8 @@ const Tweet = ({ tweet }) => {
               <img
                 src={tweet.image}
                 style={{
-                  height: "350px",
+                  maxWidth: "100%",
+                  height: "auto",
                   background: "black",
                   objectFit: "contain",
                   borderRadius: "11px",

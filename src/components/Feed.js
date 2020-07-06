@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+
   font-family: "Mukta", sans-serif;
   border: 1px solid #e6ecf0;
 
