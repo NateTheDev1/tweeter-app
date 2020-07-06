@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Navbar from "./Navbar";
 import { connect } from "react-redux";
 import Feed from "./Feed";
+import Profile from "./Profile";
 
 const Container = styled.div`
   width: 100%;
@@ -14,10 +15,13 @@ const Container = styled.div`
 `;
 
 const HomeScreen = ({ profile }) => {
-  const [activePage, setActivePage] = useState("home");
+  const [activePage, setActivePage] = useState();
 
   const pageContent = () => {
+    console.log(activePage);
     switch (activePage) {
+      case "PROFILE":
+        return <Profile />;
       default:
         return <Feed />;
     }
@@ -25,7 +29,7 @@ const HomeScreen = ({ profile }) => {
 
   return (
     <Container>
-      <Navbar profile={profile} />
+      <Navbar profile={profile} setActivePage={setActivePage} />
       <div style={{ marginLeft: "25%", width: "50%" }}>{pageContent()}</div>
     </Container>
   );

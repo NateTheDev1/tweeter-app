@@ -14,7 +14,7 @@ import { logout } from "../actions/authActions";
 
 const Nav = styled.nav`
   font-family: "Mukta", sans-serif;
-  width: 15%;
+  min-width: 15%;
   padding: 1%;
   height: 100vh;
   overflow: hidden;
@@ -67,7 +67,7 @@ const Nav = styled.nav`
   }
 `;
 
-const Navbar = ({ profile, logout }) => {
+const Navbar = ({ profile, logout, setActivePage }) => {
   const history = useHistory();
 
   if (profile === null) {
@@ -86,13 +86,13 @@ const Navbar = ({ profile, logout }) => {
       <div>
         <img src={crowLogo} alt="Tweeter Logo" className="logo" />
         <div className="nav-container">
-          <Link to="/home">
+          <Link to="/home" onClick={() => setActivePage("HOME")}>
             <HomeOutlined className="link-icon" /> Home
           </Link>
           <Link to="/home">
             <BellOutlined className="link-icon" /> Notifications
           </Link>
-          <Link to="/home">
+          <Link to="/home" onClick={() => setActivePage("PROFILE")}>
             <UserOutlined className="link-icon" /> Profile
           </Link>
           <Link onClick={handleLogout} to="#">

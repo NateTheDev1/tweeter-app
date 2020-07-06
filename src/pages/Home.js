@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { getUser, getProfile, getAllPosts } from "../actions/authActions";
 import HomeScreen from "../components/HomeScreen";
 import styled from "styled-components";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 class Home extends React.Component {
   constructor(props) {
@@ -54,7 +56,9 @@ class Home extends React.Component {
 
   render() {
     if (this.props.loading) {
-      return <h1>Loading...</h1>;
+      return (
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+      );
     }
 
     return (

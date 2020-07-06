@@ -74,6 +74,7 @@ const Container = styled.div`
 const Tweet = ({ tweet, likePost, profile }) => {
   const [data, setData] = useState(null);
   const [liked, setLiked] = useState(false);
+  const [owned, setOwned] = useState(false);
   let [serverLikes, setServerLikes] = useState(tweet.likedBy.length);
 
   useEffect(() => {
@@ -87,9 +88,13 @@ const Tweet = ({ tweet, likePost, profile }) => {
 
         for (let i = 0; i < tweet.likedBy.length; i++) {
           console.log(tweet.likedBy);
-          if (tweet.likedBy[i]._id == profile.account) {
+          if (tweet.likedBy[i]._id === profile.account) {
             setLiked(true);
+            break;
           }
+        }
+        if (tweet.postedBy === profile.account) {
+          setOwned(true);
         }
       })
       .catch((err) => {
@@ -104,7 +109,7 @@ const Tweet = ({ tweet, likePost, profile }) => {
     } else {
       setLiked(true);
       console.log(data.account);
-      likePost(tweet._id, data.account);
+      likePost(tweet._id, profile.account);
       setServerLikes((serverLikes += 1));
     }
   };
@@ -142,7 +147,6 @@ const Tweet = ({ tweet, likePost, profile }) => {
                 src={tweet.image}
                 style={{
                   maxWidth: "100%",
-
                   background: "black",
                   objectFit: "contain",
                   borderRadius: "11px",
@@ -152,12 +156,14 @@ const Tweet = ({ tweet, likePost, profile }) => {
             )}
             <div className="tweet-links">
               <div className="tweet-link">
-                <HeartOutlined
-                  className="tweet-icon"
-                  onClick={handleLike}
-                  disabled={liked}
-                  style={{ color: liked && "gray", opacity: liked && 0.5 }}
-                />
+                {owned ? null : (
+                  <HeartOutlined
+                    className="tweet-icon"
+                    onClick={handleLike}
+                    disabled={liked}
+                    style={{ color: liked && "gray", opacity: liked && 0.5 }}
+                  />
+                )}
                 {serverLikes}{" "}
                 {liked && (
                   <p style={{ color: "gray", marginLeft: "2%" }}>

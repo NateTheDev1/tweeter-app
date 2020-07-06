@@ -91,7 +91,7 @@ export const newProfile = (formValues, userId) => (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-  await localStorage.clear();
+  await localStorage.clear("token");
   await dispatch({ type: LOGOUT });
 
   return "OK";
