@@ -5,6 +5,7 @@ import Tweet from "./Tweet";
 import { RedoOutlined } from "@ant-design/icons";
 import { Tooltip, Empty } from "antd";
 import { connect } from "react-redux";
+import { getAllPosts } from "../actions/authActions";
 
 const Container = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const Container = styled.div`
   }
 `;
 
-const Feed = ({ posts }) => {
+const Feed = ({ posts, getAllPosts }) => {
   const mapPosts = () => {
     console.log(posts);
     return posts.map((p) => <Tweet tweet={p} key={p._id} />);
@@ -52,7 +53,7 @@ const Feed = ({ posts }) => {
       <div className="header">
         <h2>Home</h2>
         <Tooltip placement="right" title="Refresh">
-          <RedoOutlined className="refresh" />
+          <RedoOutlined className="refresh" onClick={getAllPosts} />
         </Tooltip>
       </div>
       <NewTweet />
@@ -81,4 +82,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(Feed);
+export default connect(mapStateToProps, { getAllPosts })(Feed);

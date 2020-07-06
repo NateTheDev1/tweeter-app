@@ -14,3 +14,4 @@ export const PROFILE_OK = "PROFILE_OK";
 export const SET_PROFILE = "SET_PROFILE";
 export const POST_OK = "POST_OK";
 export const FETCH_POSTS = "FETCH_POSTS";
+export const LIKE_POST = "LIKE_POST";
