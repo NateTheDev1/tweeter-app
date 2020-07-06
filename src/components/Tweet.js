@@ -122,11 +122,7 @@ const Tweet = ({ tweet, likePost, profile }) => {
           size={64}
           style={{ minWidth: "64px" }}
           icon={
-            data.avatar.length > 0 ? (
-              <img src={data.avatar} />
-            ) : (
-              <UserOutlined />
-            )
+            data.avatar !== null ? <img src={data.avatar} /> : <UserOutlined />
           }
         />
         <div className="tweet-top-container">
