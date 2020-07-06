@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import Feed from "./Feed";
 
 const Container = styled.div`
   display: flex;
@@ -58,20 +57,12 @@ const Profile = ({ profile }) => {
         <Avatar
           size={128}
           style={{ minWidth: "64px", marginTop: "5%" }}
-          // icon={
-          //   data.avatar.length > 0 ? (
-          //     <img src={data.avatar} />
-          //   ) : (
-          //     <UserOutlined />
-          //   )
-          // }
           icon={<UserOutlined />}
         />
         <h2>Eliza Christopher</h2>
         <p>@Username</p>
         <p className="joined">Joined 13 days ago</p>
       </div>
-      <div>{/* <Feed /> */}</div>
     </Container>
   );
 };
