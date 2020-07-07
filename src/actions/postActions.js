@@ -41,3 +41,22 @@ export const unlikePost = (postId, userId) => (dispatch) => {
       console.log(err);
     });
 };
+
+export const deletePost = (postId) => async (dispatch) => {
+  await Axios.delete(
+    `https://tweeter-app-api.herokuapp.com/api/posts/${postId}`
+  )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  Axios.get("https://tweeter-app-api.herokuapp.com/api/posts/all")
+    .then((res) => {
+      dispatch({ type: FETCH_POSTS, payload: res.data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

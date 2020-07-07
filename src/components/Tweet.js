@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Avatar } from "antd";
-import { UserOutlined, HeartOutlined } from "@ant-design/icons";
+import { Avatar, Tooltip } from "antd";
+import { UserOutlined, HeartOutlined, DeleteOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import Moment from "react-moment";
 import { connect } from "react-redux";
-import { likePost, unlikePost } from "../actions/postActions";
+import { likePost, unlikePost, deletePost } from "../actions/postActions";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
@@ -64,6 +64,17 @@ const Container = styled.div`
     color: #dc3545;
   }
 
+  && .tweet-delete {
+    color: gray;
+    opacity: 0.75;
+    transition: 0.3s;
+  }
+
+  && .tweet-delete:hover {
+    color: #dc3545;
+    opacity: 0.9;
+  }
+
   && .tweet-link {
     transition: 0.3s;
     width: auto;
@@ -73,7 +84,7 @@ const Container = styled.div`
   }
 `;
 
-const Tweet = ({ tweet, likePost, profile, unlikePost }) => {
+const Tweet = ({ tweet, likePost, profile, unlikePost, deletePost }) => {
   const [data, setData] = useState(null);
   const [liked, setLiked] = useState(false);
   const [owned, setOwned] = useState(null);
@@ -114,6 +125,10 @@ const Tweet = ({ tweet, likePost, profile, unlikePost }) => {
       likePost(tweet._id, profile.account);
       setServerLikes((serverLikes += 1));
     }
+  };
+
+  const handleDelete = () => {
+    deletePost(tweet._id);
   };
 
   if (data === null || owned === null || profile === null) {
@@ -182,6 +197,20 @@ const Tweet = ({ tweet, likePost, profile, unlikePost }) => {
                   </p>
                 )}
               </div>
+              <div className="tweet-link">
+                {owned && (
+                  <Tooltip placement="right" title="Delete Post">
+                    <DeleteOutlined
+                      style={{
+                        marginTop: "2%",
+                        fontSize: "1.5rem",
+                      }}
+                      className="tweet-delete"
+                      onClick={handleDelete}
+                    />
+                  </Tooltip>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -196,4 +225,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { likePost, unlikePost })(Tweet);
+export default connect(mapStateToProps, { likePost, unlikePost, deletePost })(
+  Tweet
+);
