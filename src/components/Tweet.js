@@ -5,7 +5,7 @@ import { UserOutlined, HeartOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import Moment from "react-moment";
 import { connect } from "react-redux";
-import { likePost } from "../actions/postActions";
+import { likePost, unlikePost } from "../actions/postActions";
 
 const Container = styled.div`
   width: 100%;
@@ -71,10 +71,10 @@ const Container = styled.div`
   }
 `;
 
-const Tweet = ({ tweet, likePost, profile }) => {
+const Tweet = ({ tweet, likePost, profile, unlikePost }) => {
   const [data, setData] = useState(null);
   const [liked, setLiked] = useState(false);
-  const [owned, setOwned] = useState(false);
+  const [owned, setOwned] = useState(null);
   let [serverLikes, setServerLikes] = useState(tweet.likedBy.length);
 
   useEffect(() => {
@@ -85,13 +85,15 @@ const Tweet = ({ tweet, likePost, profile }) => {
         setData(res.data);
 
         for (let i = 0; i < tweet.likedBy.length; i++) {
-          if (tweet.likedBy[i]._id === profile.account) {
+          if (tweet.likedBy[i]._id == profile.account) {
             setLiked(true);
             break;
           }
         }
         if (tweet.postedBy === profile.account) {
           setOwned(true);
+        } else {
+          setOwned(false);
         }
       })
       .catch((err) => {
@@ -103,6 +105,7 @@ const Tweet = ({ tweet, likePost, profile }) => {
     if (liked) {
       setLiked(false);
       setServerLikes((serverLikes -= 1));
+      unlikePost(tweet._id, profile.account);
     } else {
       setLiked(true);
 
@@ -111,7 +114,7 @@ const Tweet = ({ tweet, likePost, profile }) => {
     }
   };
 
-  if (data === null) {
+  if (data === null || owned === null || profile === null) {
     return null;
   }
 
@@ -157,7 +160,11 @@ const Tweet = ({ tweet, likePost, profile }) => {
                     style={{ color: liked && "gray", opacity: liked && 0.5 }}
                   />
                 )}
-                {serverLikes}{" "}
+                {owned
+                  ? serverLikes <= 1
+                    ? `${serverLikes} like`
+                    : `${serverLikes} likes`
+                  : `${serverLikes}`}
                 {liked && (
                   <p style={{ color: "gray", marginLeft: "2%" }}>
                     You liked this.
@@ -174,8 +181,8 @@ const Tweet = ({ tweet, likePost, profile }) => {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.authReducer.profile,
+    profile: JSON.parse(localStorage.getItem("profile")),
   };
 };
 
-export default connect(mapStateToProps, { likePost })(Tweet);
+export default connect(mapStateToProps, { likePost, unlikePost })(Tweet);

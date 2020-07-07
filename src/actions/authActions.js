@@ -68,6 +68,7 @@ export const getProfile = (token) => async (dispatch) => {
     .get(`https://tweeter-app-api.herokuapp.com/api/user/profile/${uid}`)
     .then((res) => {
       dispatch({ type: SET_PROFILE, payload: res.data });
+      localStorage.setItem("profile", JSON.stringify(res.data));
     })
     .catch((err) => {
       console.log(err);
@@ -82,6 +83,7 @@ export const newProfile = (formValues, userId) => (dispatch) => {
     )
     .then(async (res) => {
       await dispatch({ type: PROFILE_OK, payload: res.data });
+      localStorage.setItem("profile", JSON.stringify(res.data));
       return "OK";
     })
     .catch(async (err) => {
@@ -92,6 +94,7 @@ export const newProfile = (formValues, userId) => (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   await localStorage.clear("token");
+  await localStorage.clear("profile");
   await dispatch({ type: LOGOUT });
 
   return "OK";

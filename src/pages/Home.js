@@ -56,7 +56,14 @@ class Home extends React.Component {
   render() {
     if (this.props.loading) {
       return (
-        <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+        <Spin
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+          }}
+          indicator={<LoadingOutlined spin />}
+        />
       );
     }
 
