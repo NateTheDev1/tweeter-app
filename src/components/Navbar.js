@@ -89,9 +89,9 @@ const Navbar = ({ profile, logout, setActivePage }) => {
           <Link to="/home" onClick={() => setActivePage("HOME")}>
             <HomeOutlined className="link-icon" /> Home
           </Link>
-          {/* <Link to="/home">
-            <BellOutlined className="link-icon" /> Notifications
-          </Link> */}
+          <Link to="/home" onClick={() => setActivePage("ACTIVITY")}>
+            <BellOutlined className="link-icon" /> Activity
+          </Link>
           <Link to="/home" onClick={() => setActivePage("PROFILE")}>
             <UserOutlined className="link-icon" /> Profile
           </Link>

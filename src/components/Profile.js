@@ -74,7 +74,7 @@ const Profile = ({ profile }) => {
         <h2>{profile.fullName}</h2>
         <p>
           {profile.likedPosts.length} Lifetime{" "}
-          {(profile.likedPosts.lenth = 1 ? "Interactions" : "Interaction")}
+          {(profile.likedPosts.lenth = 1 ? "Interaction" : "Interactions")}
         </p>
       </div>
       <div className="top">
@@ -103,7 +103,7 @@ const Profile = ({ profile }) => {
             imageStyle={{ height: 150 }}
             description={
               <span style={{ fontSize: "1.2rem" }}>
-                Nobody has made a tweet yet
+                You have not made a tweet yet
               </span>
             }
           />

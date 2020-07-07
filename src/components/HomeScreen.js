@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Feed from "./Feed";
 import Profile from "./Profile";
 import NewsFeed from "./NewsFeed";
+import Activity from "./Activity";
 
 const Container = styled.div`
   width: 100%;
@@ -22,6 +23,8 @@ const HomeScreen = ({ profile }) => {
     switch (activePage) {
       case "PROFILE":
         return <Profile />;
+      case "ACTIVITY":
+        return <Activity />;
       default:
         return <Feed />;
     }
