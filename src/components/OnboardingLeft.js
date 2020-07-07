@@ -25,7 +25,7 @@ const OnboardingLeft = () => {
       <p style={{ fontSize: "1.2rem" }}>
         By using Tweeter's services you agree to our Cookie Use and Data
         Transfer outside the EU. We and our partners operate globally and use
-        cookis, including for analytics, personalization, and ads.
+        cookies, including for analytics, personalization, and ads.
       </p>,
       {
         appearance: "info",
