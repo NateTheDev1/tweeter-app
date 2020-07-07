@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Avatar, Input, Button, Tooltip } from "antd";
+import { Avatar, Input, Tooltip } from "antd";
 import {
   UserOutlined,
   FileImageOutlined,
-  ClearOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { FileUpload } from "./Styled/NewUserModalStyled";
 import { createPost } from "../actions/authActions";
-import { useForm } from "react-hook-form";
 
 import Axios from "axios";
 const API_KEY = "827878474497588";

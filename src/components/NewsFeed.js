@@ -69,14 +69,14 @@ const NewsFeed = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // Axios.get(`https://gnews.io/api/v3/top-news?token=${API_KEY}&max=4`)
-    //   .then((res) => {
-    //     setData(res.data.articles);
-    //   })
-    //   .catch((err) => {
-    //     setData([]);
-    //     setError(err.response.message);
-    //   });
+    Axios.get(`https://gnews.io/api/v3/top-news?token=${API_KEY}&max=4`)
+      .then((res) => {
+        setData(res.data.articles);
+      })
+      .catch((err) => {
+        setData([]);
+        setError(err.response.message);
+      });
   }, []);
 
   if (data === null) {
