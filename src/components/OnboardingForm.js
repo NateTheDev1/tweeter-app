@@ -14,6 +14,10 @@ const Container = styled.form`
   height: 100vh;
   width: 50vw;
   margin: 0 auto;
+
+  @media (max-width: 550px) {
+    width: 100vw;
+  }
 `;
 
 const Error = styled.p`
@@ -26,6 +30,10 @@ const TitleDiv = styled.div`
   width: 50%;
   margin: 0 auto;
   padding: 2%;
+
+  @media (max-width: 1440px) {
+    width: 75%;
+  }
 
   && h1 {
     font-weight: 700;
@@ -51,6 +59,10 @@ const FormDiv = styled.div`
 
   width: 50%;
   margin: 0 auto;
+
+  @media (max-width: 1440px) {
+    width: 75%;
+  }
 
   && input {
     padding: 2%;
@@ -92,8 +104,10 @@ const SwitchDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 2%;
+  flex-wrap: wrap;
 
   && p {
+    margin-top: 5%;
     font-size: 1.2rem;
   }
 

@@ -9,6 +9,15 @@ export const Container = styled.div`
   color: white;
   height: 100vh;
   width: 50vw;
+
+  @media (max-width: 850px) {
+    width: 30vw;
+  }
+
+  @media (max-width: 550px) {
+    width: 30vw;
+    display: none;
+  }
 `;
 
 export const Perk = styled.div`
@@ -21,6 +30,11 @@ export const Perk = styled.div`
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 5%;
+  @media (max-width: 850px) {
+    text-align: center;
+    flex-direction: column;
+    margin-bottom: 25%;
+  }
 
   && h2 {
     width: 50%;
