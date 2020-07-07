@@ -4,12 +4,13 @@ import Navbar from "./Navbar";
 import { connect } from "react-redux";
 import Feed from "./Feed";
 import Profile from "./Profile";
+import NewsFeed from "./NewsFeed";
 
 const Container = styled.div`
   width: 100%;
   margin: 0 auto;
   max-width: 1440px;
-
+  display: flex;
   box-sizing: border-box;
   height: 100vh;
 `;
@@ -30,6 +31,7 @@ const HomeScreen = ({ profile }) => {
     <Container>
       <Navbar profile={profile} setActivePage={setActivePage} />
       <div style={{ marginLeft: "25%", width: "50%" }}>{pageContent()}</div>
+      <NewsFeed />
     </Container>
   );
 };

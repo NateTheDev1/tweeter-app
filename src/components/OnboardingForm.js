@@ -131,7 +131,7 @@ const OnboardingForm = (props) => {
     } else {
       const res = await props.loginUser(data);
       if (res === "OK") {
-        addToast(<p>Thank you for signing up! You are now logged in!</p>, {
+        addToast(<p>Welcome back! You are now logged in!</p>, {
           appearance: "success",
         });
         setTimeout(() => {

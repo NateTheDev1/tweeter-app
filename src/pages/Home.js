@@ -56,6 +56,7 @@ class Home extends React.Component {
     if (this.props.loading) {
       return (
         <Spin
+          size="large"
           style={{
             position: "fixed",
             top: "50%",
