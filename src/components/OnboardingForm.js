@@ -5,7 +5,7 @@ import crowLogo from "../images/crowLogo.png";
 import { useHistory } from "react-router-dom";
 import { registerUser, loginUser } from "../actions/authActions";
 import { connect } from "react-redux";
-import { toast } from "react-toastify";
+import { useToasts } from "react-toast-notifications";
 
 const Container = styled.form`
   display: flex;
@@ -108,20 +108,21 @@ const SwitchDiv = styled.div`
 
 const OnboardingForm = (props) => {
   const { register, handleSubmit, watch, errors } = useForm();
+  const {
+    addToast,
+    removeToast,
+    removeAllToasts,
+    updateToast,
+    toastStack,
+  } = useToasts();
   const history = useHistory();
 
   const onSubmit = async (data) => {
     if (props.action === "Have an account?") {
       const res = await props.registerUser(data);
       if (res === "OK") {
-        toast.success("Thank you for signing up! You are now logged in!", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+        addToast(<p>Thank you for signing up! You are now logged in!</p>, {
+          appearance: "success",
         });
         setTimeout(() => {
           history.push("/home");
@@ -130,14 +131,8 @@ const OnboardingForm = (props) => {
     } else {
       const res = await props.loginUser(data);
       if (res === "OK") {
-        toast.success("Rock On! You have been logged in.", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+        addToast(<p>Thank you for signing up! You are now logged in!</p>, {
+          appearance: "success",
         });
         setTimeout(() => {
           history.push("/home");

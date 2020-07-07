@@ -8,6 +8,7 @@ import { FileUpload, FormDiv } from "./Styled/NewUserModalStyled";
 import { connect } from "react-redux";
 import { newProfile } from "../actions/authActions";
 import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
 const API_KEY = "827878474497588";
 
@@ -24,9 +25,17 @@ const NewUserModal = ({
   loading,
   setToast,
   handleModal,
+  error,
 }) => {
   const history = useHistory();
   const { register, handleSubmit, watch, errors } = useForm();
+  const {
+    addToast,
+    removeToast,
+    removeAllToasts,
+    updateToast,
+    toastStack,
+  } = useToasts();
 
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
@@ -38,11 +47,8 @@ const NewUserModal = ({
     };
     const res = await newProfile(profile, user._id);
     if (res === "OK") {
-      setToast(res);
       handleModal();
       window.location.reload();
-    } else {
-      setToast(res);
     }
   };
 
@@ -86,6 +92,7 @@ const NewUserModal = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormDiv>
           <h3>Profile Image</h3>
+          <Error>{error}</Error>
           <Avatar
             size={96}
             icon={image == null ? <UserOutlined /> : <img src={image} />}
@@ -144,6 +151,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.authReducer.user,
     loading: state.globalReducer.loading,
+    error: state.authReducer.error,
   };
 };
 
