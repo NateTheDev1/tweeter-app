@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Tweet from "./Tweet";
+import { Empty } from "antd";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import Moment from "react-moment";
+import Axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -10,7 +14,6 @@ const Container = styled.div`
 
   font-family: "Mukta", sans-serif;
   border: 1px solid #e6ecf0;
-  height: 100vh;
 
   & h2 {
     font-size: 1.5rem;
@@ -47,21 +50,66 @@ const Container = styled.div`
 `;
 
 const Profile = ({ profile }) => {
+  const [posts, setPosts] = useState([]);
+
+  const mapPosts = () => {
+    return posts.map((p) => <Tweet tweet={p} key={p._id} />);
+  };
+
+  useEffect(() => {
+    Axios.get(
+      `https://tweeter-app-api.herokuapp.com/api/posts/${profile.account}`
+    )
+      .then((res) => {
+        setPosts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <Container>
       <div className="header">
-        <h2>Eliza Christopher</h2>
-        <p>13 Lifetime Interactions</p>
+        <h2>{profile.fullName}</h2>
+        <p>
+          {profile.likedPosts.length} Lifetime{" "}
+          {(profile.likedPosts.lenth = 1 ? "Interactions" : "Interaction")}
+        </p>
       </div>
       <div className="top">
         <Avatar
           size={128}
           style={{ minWidth: "64px", marginTop: "5%" }}
-          icon={<UserOutlined />}
+          icon={
+            profile.avatar === null ? (
+              <UserOutlined />
+            ) : (
+              <img src={profile.avatar} />
+            )
+          }
         />
-        <h2>Eliza Christopher</h2>
-        <p>@Username</p>
-        <p className="joined">Joined 13 days ago</p>
+        <h2>{profile.fullName}</h2>
+        <p>@{profile.username}</p>
+        <p className="joined">
+          Joined <Moment fromNow>{profile.createdAt}</Moment>
+        </p>
+        <p style={{ marginTop: "2%" }}>Bio feature in development 🎉 </p>
+      </div>
+      <div className="feed">
+        {posts.length <= 0 ? (
+          <Empty
+            style={{ marginTop: "5%" }}
+            imageStyle={{ height: 150 }}
+            description={
+              <span style={{ fontSize: "1.2rem" }}>
+                Nobody has made a tweet yet
+              </span>
+            }
+          />
+        ) : (
+          mapPosts()
+        )}
       </div>
     </Container>
   );

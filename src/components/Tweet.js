@@ -6,6 +6,8 @@ import Axios from "axios";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import { likePost, unlikePost } from "../actions/postActions";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Container = styled.div`
   width: 100%;
@@ -115,7 +117,16 @@ const Tweet = ({ tweet, likePost, profile, unlikePost }) => {
   };
 
   if (data === null || owned === null || profile === null) {
-    return null;
+    return (
+      <Spin
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+        }}
+        indicator={<LoadingOutlined spin />}
+      />
+    );
   }
 
   return (
@@ -161,7 +172,7 @@ const Tweet = ({ tweet, likePost, profile, unlikePost }) => {
                   />
                 )}
                 {owned
-                  ? serverLikes <= 1
+                  ? serverLikes === 1
                     ? `${serverLikes} like`
                     : `${serverLikes} likes`
                   : `${serverLikes}`}

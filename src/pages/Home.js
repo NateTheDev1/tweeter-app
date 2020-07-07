@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { getUser, getProfile, getAllPosts } from "../actions/authActions";
 import HomeScreen from "../components/HomeScreen";
-import styled from "styled-components";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
