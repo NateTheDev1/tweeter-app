@@ -14,6 +14,7 @@ import { logout } from "../actions/authActions";
 
 const Nav = styled.nav`
   font-family: "Mukta", sans-serif;
+  margin-left: 10%;
   min-width: 15%;
   padding: 1%;
   height: 100vh;
@@ -22,6 +23,15 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 1440px) {
+    margin-left: 0%;
+    min-width: 20%;
+  }
+
+  @media (max-width: 735px) {
+    display: none;
+  }
 
   && .logo {
     width: 75px;

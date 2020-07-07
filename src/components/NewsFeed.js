@@ -13,12 +13,21 @@ const Container = styled.div`
   min-width: 15%;
   padding: 1%;
   height: 100vh;
-  margin-left: 60%;
+  margin-left: 75%;
   overflow: hidden;
   position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 1440px) {
+    margin-left: 72%;
+    width: 25%;
+  }
+
+  @media (max-width: 1050px) {
+    display: none;
+  }
 
   && .top-news {
     height: 75vh;

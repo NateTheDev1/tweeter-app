@@ -56,7 +56,7 @@ const Container = styled.form`
     outline: none;
     padding: 2%;
     width: 150px;
-    height: 40px;
+    height: 50px;
     border-radius: 25px;
   }
 

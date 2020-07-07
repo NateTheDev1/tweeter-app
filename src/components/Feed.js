@@ -14,6 +14,14 @@ const Container = styled.div`
   font-family: "Mukta", sans-serif;
   border: 1px solid #e6ecf0;
 
+  @media (max-width: 735px) {
+    padding-top: 16%;
+  }
+
+  @media (max-width: 615px) {
+    padding-top: 25%;
+  }
+
   && .header {
     display: flex;
     justify-content: space-between;
@@ -22,6 +30,13 @@ const Container = styled.div`
     border-bottom: 1px solid #e6ecf0;
     height: 5vh;
     width: 100%;
+
+    @media (max-width: 735px) {
+      background: white;
+      position: fixed;
+      top: 0;
+      z-index: 1;
+    }
 
     & h2 {
       font-size: 1.5rem;

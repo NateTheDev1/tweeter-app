@@ -26,6 +26,7 @@ const Container = styled.div`
   && .tweet-top {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     & h2 {
       font-size: 1.2rem;
