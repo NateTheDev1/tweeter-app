@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Avatar, Tooltip } from "antd";
-import { UserOutlined, HeartOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  HeartOutlined,
+  DeleteOutlined,
+  RetweetOutlined,
+} from "@ant-design/icons";
 import Axios from "axios";
 import Moment from "react-moment";
 import { connect } from "react-redux";
-import { likePost, unlikePost, deletePost } from "../actions/postActions";
+import {
+  likePost,
+  unlikePost,
+  deletePost,
+  retweet,
+} from "../actions/postActions";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
@@ -83,9 +93,29 @@ const Container = styled.div`
     align-content: center;
     font-size: 1rem;
   }
+
+  && .retweet-link {
+    & .retweet {
+      color: gray;
+      opacity: 0.75;
+      transition: 0.3s;
+    }
+
+    & .retweet:hover {
+      color: #3ac430;
+      opacity: 0.9;
+    }
+  }
 `;
 
-const Tweet = ({ tweet, likePost, profile, unlikePost, deletePost }) => {
+const Tweet = ({
+  tweet,
+  likePost,
+  profile,
+  unlikePost,
+  deletePost,
+  retweet,
+}) => {
   const [data, setData] = useState(null);
   const [liked, setLiked] = useState(false);
   const [owned, setOwned] = useState(null);
@@ -130,6 +160,14 @@ const Tweet = ({ tweet, likePost, profile, unlikePost, deletePost }) => {
 
   const handleDelete = () => {
     deletePost(tweet._id);
+  };
+
+  const handleRetweet = () => {
+    const newTweet = {
+      content: `Originally posted by: @${data.username} ${tweet.content}`,
+      image: tweet.image,
+    };
+    retweet(newTweet);
   };
 
   if (data === null || owned === null || profile === null) {
@@ -212,6 +250,20 @@ const Tweet = ({ tweet, likePost, profile, unlikePost, deletePost }) => {
                   </Tooltip>
                 )}
               </div>
+              <div className="retweet-link">
+                {!owned && (
+                  <Tooltip placement="right" title="Retweet Post">
+                    <RetweetOutlined
+                      style={{
+                        marginTop: "2%",
+                        fontSize: "1.5rem",
+                      }}
+                      className="retweet"
+                      onClick={handleRetweet}
+                    />
+                  </Tooltip>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -226,6 +278,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { likePost, unlikePost, deletePost })(
-  Tweet
-);
+export default connect(mapStateToProps, {
+  likePost,
+  unlikePost,
+  deletePost,
+  retweet,
+})(Tweet);
