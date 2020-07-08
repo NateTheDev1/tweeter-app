@@ -106,6 +106,14 @@ const Container = styled.div`
       opacity: 0.9;
     }
   }
+  && .mention {
+    color: white;
+    padding-left: 2%;
+    padding-right: 2%;
+    border-radius: 8px;
+    background: #1da1f2;
+    margin-right: 2%;
+  }
 `;
 
 const Tweet = ({
@@ -119,7 +127,9 @@ const Tweet = ({
   const [data, setData] = useState(null);
   const [liked, setLiked] = useState(false);
   const [owned, setOwned] = useState(null);
-  let [serverLikes, setServerLikes] = useState(tweet.likedBy.length);
+  const [serverLikes, setServerLikes] = useState(tweet.likedBy.length);
+  const [mention, setMention] = useState("");
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     Axios.get(
@@ -143,6 +153,7 @@ const Tweet = ({
       .catch((err) => {
         console.log(err);
       });
+    setContent(handleRetweetText(tweet.content));
   }, []);
 
   const handleLike = () => {
@@ -164,10 +175,21 @@ const Tweet = ({
 
   const handleRetweet = () => {
     const newTweet = {
-      content: `Originally posted by: @${data.username} ${tweet.content}`,
+      content: `@${data.username} ${tweet.content}`,
       image: tweet.image,
     };
     retweet(newTweet);
+  };
+
+  const handleRetweetText = (str) => {
+    if (str.includes("@")) {
+      let parts = str.split(" ");
+      let mention_ref = `  ${parts.shift()} `;
+      setMention(mention_ref);
+      return parts.join(" ");
+    } else {
+      return str;
+    }
   };
 
   if (data === null || owned === null || profile === null) {
@@ -202,7 +224,10 @@ const Tweet = ({
             </p>
           </div>
           <div className="tweet-content">
-            <p>{tweet.content}</p>
+            <p>
+              {mention.length > 1 && <span className="mention">{mention}</span>}
+              {content}
+            </p>
             {tweet.image && (
               <img
                 src={tweet.image}
