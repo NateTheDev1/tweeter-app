@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Avatar, Input, Tooltip } from "antd";
+import { Avatar, Input, Tooltip, Spin } from "antd";
 import {
   UserOutlined,
   FileImageOutlined,
   DeleteOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { FileUpload } from "./Styled/NewUserModalStyled";
@@ -178,12 +179,25 @@ const NewTweet = ({ profile, createPost }) => {
             </FileUpload>
           </Tooltip>
         )}
-        <button
-          type="submit"
-          disabled={content.length > 0 && content.length < 200 ? false : true}
-        >
-          Tweet
-        </button>
+        {imageLoading && (
+          <Spin
+            size="large"
+            style={{
+              position: "fixed",
+              top: "10%",
+              left: "50%",
+            }}
+            indicator={<LoadingOutlined spin />}
+          />
+        )}
+        {!imageLoading && (
+          <button
+            type="submit"
+            disabled={content.length > 0 && content.length < 200 ? false : true}
+          >
+            Tweet
+          </button>
+        )}
       </div>
     </Container>
   );
