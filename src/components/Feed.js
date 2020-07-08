@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NewTweet from "./NewTweet";
 import Tweet from "./Tweet";
@@ -6,6 +6,7 @@ import { RedoOutlined } from "@ant-design/icons";
 import { Tooltip, Empty } from "antd";
 import { connect } from "react-redux";
 import { getAllPosts } from "../actions/authActions";
+import ProfileModal from "./ProfileModal";
 
 const Container = styled.div`
   display: flex;
@@ -58,12 +59,23 @@ const Container = styled.div`
 `;
 
 const Feed = ({ posts, getAllPosts }) => {
+  const [open, setOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleOpen = (user) => {
+    setSelectedUser(user);
+    setOpen(!open);
+  };
+
   const mapPosts = () => {
-    return posts.map((p) => <Tweet tweet={p} key={p._id} />);
+    return posts.map((p) => (
+      <Tweet tweet={p} key={p._id} handleOpen={handleOpen} />
+    ));
   };
 
   return (
     <Container>
+      <ProfileModal open={open} setOpen={setOpen} user={selectedUser} />
       <div className="header">
         <h2>Home</h2>
         <Tooltip placement="right" title="Refresh">

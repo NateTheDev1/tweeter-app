@@ -69,14 +69,16 @@ const NewsFeed = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    Axios.get(`https://gnews.io/api/v3/top-news?token=${API_KEY}&max=4`)
-      .then((res) => {
-        setData(res.data.articles);
-      })
-      .catch((err) => {
-        setData([]);
-        setError(err.response.message);
-      });
+    if (window.innerWidth > 1050) {
+      Axios.get(`https://gnews.io/api/v3/top-news?token=${API_KEY}&max=10`)
+        .then((res) => {
+          setData(res.data.articles);
+        })
+        .catch((err) => {
+          setData([]);
+          setError(err.response.message);
+        });
+    }
   }, []);
 
   if (data === null) {
@@ -102,7 +104,14 @@ const NewsFeed = () => {
       <div className="top-news">
         <h2>What's Happening</h2>
         {error}
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            overflow: "scroll",
+            height: "100%",
+          }}
+        >
           {data.map((article) => (
             <div className="article">
               <a href={article.url} target="_blank">

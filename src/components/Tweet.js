@@ -43,6 +43,13 @@ const Container = styled.div`
       font-weight: 700;
       color: black;
       margin-right: 2%;
+      text-decoration: underline;
+      transition: 0.3s;
+
+      &:hover {
+        text-decoration-color: #1da1f2;
+        cursor: pointer;
+      }
     }
 
     & p {
@@ -117,6 +124,7 @@ const Container = styled.div`
 `;
 
 const Tweet = ({
+  handleOpen,
   tweet,
   likePost,
   profile,
@@ -127,7 +135,7 @@ const Tweet = ({
   const [data, setData] = useState(null);
   const [liked, setLiked] = useState(false);
   const [owned, setOwned] = useState(null);
-  const [serverLikes, setServerLikes] = useState(tweet.likedBy.length);
+  let [serverLikes, setServerLikes] = useState(tweet.likedBy.length);
   const [mention, setMention] = useState("");
   const [content, setContent] = useState("");
 
@@ -217,7 +225,7 @@ const Tweet = ({
         />
         <div className="tweet-top-container">
           <div className="tweet-top">
-            <h2>{data.fullName}</h2>
+            <h2 onClick={() => handleOpen(data)}>{data.fullName}</h2>
             <p>@{data.username} </p>
             <p>
               <Moment fromNow>{tweet.createdAt}</Moment>

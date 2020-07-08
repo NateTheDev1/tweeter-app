@@ -74,7 +74,7 @@ const Profile = ({ profile }) => {
         <h2>{profile.fullName}</h2>
         <p>
           {profile.likedPosts.length} Lifetime{" "}
-          {(profile.likedPosts.lenth = 1 ? "Interaction" : "Interactions")}
+          {profile.likedPosts.length === 1 ? "Interaction" : "Interactions"}
         </p>
       </div>
       <div className="top">
