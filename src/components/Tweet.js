@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Avatar, Tooltip } from "antd";
+import { Avatar, Tooltip, Badge } from "antd";
 import {
   UserOutlined,
   HeartOutlined,
@@ -103,6 +103,7 @@ const Container = styled.div`
   }
 
   && .tweet-link {
+    margin-top: 2%;
     transition: 0.3s;
     width: auto;
     display: flex;
@@ -160,6 +161,7 @@ const Tweet = ({
   let [serverLikes, setServerLikes] = useState(tweet.likedBy.length);
   const [mention, setMention] = useState("");
   const [content, setContent] = useState("");
+  const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
     Axios.get(
@@ -179,6 +181,15 @@ const Tweet = ({
         } else {
           setOwned(false);
         }
+        Axios.get(
+          `https://tweeter-app-api.herokuapp.com/api/posts/${tweet._id}/comments`
+        )
+          .then((res) => {
+            setCommentCount(res.data.length);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -322,16 +333,25 @@ const Tweet = ({
               </div>
               {expandable && (
                 <div className="tweet-link">
-                  <Tooltip placement="right" title="Comment">
-                    <CommentOutlined
-                      style={{
-                        marginTop: "2%",
-                        fontSize: "1.5rem",
-                      }}
-                      className="comment"
-                      onClick={() => handleComment(tweet)}
-                    />
-                  </Tooltip>
+                  <Badge
+                    count={commentCount}
+                    style={{
+                      backgroundColor: "#fff",
+                      color: "#999",
+                      boxShadow: "0 0 0 1px #d9d9d9 inset",
+                    }}
+                  >
+                    <Tooltip placement="right" title="Comment">
+                      <CommentOutlined
+                        style={{
+                          marginTop: "2%",
+                          fontSize: "1.5rem",
+                        }}
+                        className="comment"
+                        onClick={() => handleComment(tweet)}
+                      />
+                    </Tooltip>
+                  </Badge>
                 </div>
               )}
             </div>
