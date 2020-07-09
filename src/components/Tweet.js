@@ -103,7 +103,7 @@ const Container = styled.div`
   }
 
   && .tweet-link {
-    margin-top: 2%;
+    margin-top: 1%;
     transition: 0.3s;
     width: auto;
     display: flex;
