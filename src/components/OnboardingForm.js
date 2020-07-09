@@ -132,27 +132,29 @@ const OnboardingForm = (props) => {
   const history = useHistory();
 
   const onSubmit = async (data) => {
-    if (window.innerWidth > 750) {
-      if (props.action === "Have an account?") {
-        const res = await props.registerUser(data);
-        if (res === "OK") {
+    if (props.action === "Have an account?") {
+      const res = await props.registerUser(data);
+      if (res === "OK") {
+        if (window.innerWidth > 750) {
           addToast(<p>Thank you for signing up! You are now logged in!</p>, {
             appearance: "success",
           });
-          setTimeout(() => {
-            history.push("/home");
-          }, 2000);
         }
-      } else {
-        const res = await props.loginUser(data);
-        if (res === "OK") {
+        setTimeout(() => {
+          history.push("/home");
+        }, 2000);
+      }
+    } else {
+      const res = await props.loginUser(data);
+      if (res === "OK") {
+        if (window.innerWidth > 750) {
           addToast(<p>Welcome back! You are now logged in!</p>, {
             appearance: "success",
           });
-          setTimeout(() => {
-            history.push("/home");
-          }, 2000);
         }
+        setTimeout(() => {
+          history.push("/home");
+        }, 2000);
       }
     }
   };
