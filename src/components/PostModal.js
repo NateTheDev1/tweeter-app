@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Modal from "antd/lib/modal/Modal";
 import styled from "styled-components";
 import Moment from "react-moment";
-import { Empty, Avatar, Input } from "antd";
+import { Empty, Avatar, Input, Tooltip } from "antd";
 import Axios from "axios";
 import { connect } from "react-redux";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const Container = styled.div`
   display: flex;
@@ -118,11 +118,24 @@ const Container = styled.div`
       display: none;
     }
   }
+
+  && .tweet-delete {
+    color: gray;
+    opacity: 0.75;
+    transition: 0.3s;
+  }
+
+  && .tweet-delete:hover {
+    cursor: pointer;
+    color: #dc3545;
+    opacity: 0.9;
+  }
 `;
 
 const PostModal = ({ tweet, open, setOpen, profile }) => {
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
+  const [owned, setOwned] = useState(false);
 
   const mapComments = () => {
     return comments.map((c) => (
@@ -131,6 +144,7 @@ const PostModal = ({ tweet, open, setOpen, profile }) => {
         style={{
           borderTop: "1px solid #e6ecf0",
           borderBottom: "1px solid #e6ecf0",
+          marginTop: "3%",
         }}
       >
         <p style={{ color: "black", fontSize: "1.4rem" }}>{c.content}</p>
@@ -138,6 +152,16 @@ const PostModal = ({ tweet, open, setOpen, profile }) => {
         <p>
           <Moment fromNow>{c.createdAt}</Moment>
         </p>
+        <Tooltip placement="right" title="Delete Comment">
+          <DeleteOutlined
+            onClick={() => handleDelete(c)}
+            style={{
+              marginTop: "2%",
+              fontSize: "1.5rem",
+            }}
+            className="tweet-delete"
+          />
+        </Tooltip>
       </div>
     ));
   };
@@ -170,6 +194,28 @@ const PostModal = ({ tweet, open, setOpen, profile }) => {
     )
       .then((res) => {
         setContent("");
+        if (tweet !== null) {
+          Axios.get(
+            `https://tweeter-app-api.herokuapp.com/api/posts/${tweet._id}/comments`
+          )
+            .then((res) => {
+              setComments(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleDelete = (comment) => {
+    Axios.delete(
+      `https://tweeter-app-api.herokuapp.com/api/posts/comments/${comment._id}`
+    )
+      .then((res) => {
         if (tweet !== null) {
           Axios.get(
             `https://tweeter-app-api.herokuapp.com/api/posts/${tweet._id}/comments`

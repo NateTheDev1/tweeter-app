@@ -99,6 +99,7 @@ const Container = styled.div`
   && .tweet-delete:hover {
     color: #dc3545;
     opacity: 0.9;
+    cursor: pointer;
   }
 
   && .tweet-link {
