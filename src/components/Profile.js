@@ -53,7 +53,7 @@ const Profile = ({ profile }) => {
   const [posts, setPosts] = useState([]);
 
   const mapPosts = () => {
-    return posts.map((p) => <Tweet tweet={p} key={p._id} />);
+    return posts.map((p) => <Tweet tweet={p} key={p._id} expandable={false} />);
   };
 
   useEffect(() => {

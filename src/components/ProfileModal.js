@@ -51,7 +51,7 @@ const Container = styled.div`
   }
 `;
 
-const ProfileModal = ({ open, setOpen, user }) => {
+const ProfileModal = ({ open, setOpen, user, expandable }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -69,7 +69,9 @@ const ProfileModal = ({ open, setOpen, user }) => {
   }, [user]);
 
   const mapPosts = () => {
-    return posts.map((p) => <Tweet tweet={p} key={p._id} />);
+    return posts.map((p) => (
+      <Tweet tweet={p} key={p._id} expandable={expandable} />
+    ));
   };
 
   if (user === null) {

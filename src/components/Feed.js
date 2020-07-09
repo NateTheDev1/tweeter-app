@@ -88,7 +88,12 @@ const Feed = ({ posts, getAllPosts }) => {
 
   return (
     <Container>
-      <ProfileModal open={open} setOpen={setOpen} user={selectedUser} />
+      <ProfileModal
+        open={open}
+        setOpen={setOpen}
+        user={selectedUser}
+        expandable={false}
+      />
       <CommentModal
         open={openComment}
         setOpen={setComment}

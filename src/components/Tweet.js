@@ -151,6 +151,7 @@ const Tweet = ({
   unlikePost,
   deletePost,
   retweet,
+  expandable = true,
 }) => {
   const [data, setData] = useState(null);
   const [liked, setLiked] = useState(false);
@@ -317,18 +318,20 @@ const Tweet = ({
                   </Tooltip>
                 )}
               </div>
-              <div className="tweet-link">
-                <Tooltip placement="right" title="Comment">
-                  <CommentOutlined
-                    style={{
-                      marginTop: "2%",
-                      fontSize: "1.5rem",
-                    }}
-                    className="comment"
-                    onClick={() => handleComment(tweet)}
-                  />
-                </Tooltip>
-              </div>
+              {expandable && (
+                <div className="tweet-link">
+                  <Tooltip placement="right" title="Comment">
+                    <CommentOutlined
+                      style={{
+                        marginTop: "2%",
+                        fontSize: "1.5rem",
+                      }}
+                      className="comment"
+                      onClick={() => handleComment(tweet)}
+                    />
+                  </Tooltip>
+                </div>
+              )}
             </div>
           </div>
         </div>
