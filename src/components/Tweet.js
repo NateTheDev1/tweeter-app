@@ -262,7 +262,8 @@ const Tweet = ({
               <img
                 src={tweet.image}
                 style={{
-                  maxWidth: "100%",
+                  maxWidth: "50%",
+                  height: "350px",
                   background: "black",
                   objectFit: "contain",
                   borderRadius: "11px",
