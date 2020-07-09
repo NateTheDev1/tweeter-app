@@ -305,7 +305,11 @@ const Tweet = ({
               </div>
               <div className="tweet-link">
                 {owned && (
-                  <Tooltip placement="right" title="Delete Post">
+                  <Tooltip
+                    placement="right"
+                    title="Delete Post"
+                    trigger="hover"
+                  >
                     <DeleteOutlined
                       style={{
                         marginTop: "2%",
@@ -319,7 +323,11 @@ const Tweet = ({
               </div>
               <div className="retweet-link">
                 {!owned && (
-                  <Tooltip placement="right" title="Retweet Post">
+                  <Tooltip
+                    placement="right"
+                    title="Retweet Post"
+                    trigger="hover"
+                  >
                     <RetweetOutlined
                       style={{
                         marginTop: "2%",
@@ -341,7 +349,7 @@ const Tweet = ({
                       boxShadow: "0 0 0 1px #d9d9d9 inset",
                     }}
                   >
-                    <Tooltip placement="right" title="Comment">
+                    <Tooltip placement="right" title="Comment" trigger="hover">
                       <CommentOutlined
                         style={{
                           marginTop: "2%",

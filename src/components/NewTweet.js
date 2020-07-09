@@ -158,7 +158,7 @@ const NewTweet = ({ profile, createPost }) => {
               fontSize: "1.2rem",
             }}
           >
-            <Tooltip placement="top" title="Remove Image">
+            <Tooltip placement="top" title="Remove Image" trigger="hover">
               <DeleteOutlined
                 style={{ marginRight: "3%", fontSize: "1.8rem" }}
                 onClick={() => setImage(null)}
@@ -167,7 +167,7 @@ const NewTweet = ({ profile, createPost }) => {
           </div>
         )}
         {image === null && (
-          <Tooltip placement="top" title="Add Image">
+          <Tooltip placement="top" title="Add Image" trigger="hover">
             <FileUpload
               style={{ width: "4%", marginBottom: 0, marginRight: "5%" }}
             >

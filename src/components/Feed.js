@@ -101,7 +101,7 @@ const Feed = ({ posts, getAllPosts }) => {
       />
       <div className="header">
         <h2>Home</h2>
-        <Tooltip placement="right" title="Refresh">
+        <Tooltip placement="right" title="Refresh" trigger="hover">
           <RedoOutlined className="refresh" onClick={getAllPosts} />
         </Tooltip>
       </div>
