@@ -55,6 +55,9 @@ const Container = styled.div`
     & p {
       color: gray;
       margin-right: 2%;
+      @media (max-width: 735px) {
+        margin-top: 2%;
+      }
     }
   }
 
@@ -65,6 +68,10 @@ const Container = styled.div`
     margin-top: 1%;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 735px) {
+      margin-top: 2%;
+    }
   }
 
   && .tweet-links {

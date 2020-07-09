@@ -22,7 +22,7 @@ const OnboardingLeft = () => {
 
   const setToast = () => {
     addToast(
-      <p style={{ fontSize: "1.2rem" }}>
+      <p style={{ fontSize: "0.8rem" }}>
         By using Tweeter's services you agree to our Cookie Use and Data
         Transfer outside the EU. We and our partners operate globally and use
         cookies, including for analytics, personalization, and ads.

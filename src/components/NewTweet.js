@@ -57,6 +57,11 @@ const Container = styled.form`
     width: 150px;
     height: 50px;
     border-radius: 25px;
+
+    @media (max-width: 735px) {
+      width: 100px;
+      height: 35px;
+    }
   }
 
   && button:hover {
