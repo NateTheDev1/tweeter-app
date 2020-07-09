@@ -6,6 +6,7 @@ import {
   HeartOutlined,
   DeleteOutlined,
   RetweetOutlined,
+  CommentOutlined,
 } from "@ant-design/icons";
 import Axios from "axios";
 import Moment from "react-moment";
@@ -128,10 +129,22 @@ const Container = styled.div`
     background: #1da1f2;
     margin-right: 2%;
   }
+
+  && .comment {
+    color: gray;
+    opacity: 0.75;
+    transition: 0.3s;
+
+    &:hover {
+      color: #4693d9;
+      opacity: 0.9;
+    }
+  }
 `;
 
 const Tweet = ({
   handleOpen,
+  handleComment,
   tweet,
   likePost,
   profile,
@@ -303,6 +316,18 @@ const Tweet = ({
                     />
                   </Tooltip>
                 )}
+              </div>
+              <div className="tweet-link">
+                <Tooltip placement="right" title="Comment">
+                  <CommentOutlined
+                    style={{
+                      marginTop: "2%",
+                      fontSize: "1.5rem",
+                    }}
+                    className="comment"
+                    onClick={() => handleComment(tweet)}
+                  />
+                </Tooltip>
               </div>
             </div>
           </div>

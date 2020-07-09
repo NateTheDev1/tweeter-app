@@ -7,6 +7,7 @@ import { Tooltip, Empty } from "antd";
 import { connect } from "react-redux";
 import { getAllPosts } from "../actions/authActions";
 import ProfileModal from "./ProfileModal";
+import CommentModal from "./PostModal";
 
 const Container = styled.div`
   display: flex;
@@ -60,22 +61,39 @@ const Container = styled.div`
 
 const Feed = ({ posts, getAllPosts }) => {
   const [open, setOpen] = useState(false);
+  const [openComment, setComment] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedTweet, setSelectedTweet] = useState(null);
 
   const handleOpen = (user) => {
     setSelectedUser(user);
     setOpen(!open);
   };
 
+  const handleComment = (tweet) => {
+    setSelectedTweet(tweet);
+    setComment(!openComment);
+  };
+
   const mapPosts = () => {
     return posts.map((p) => (
-      <Tweet tweet={p} key={p._id} handleOpen={handleOpen} />
+      <Tweet
+        tweet={p}
+        key={p._id}
+        handleOpen={handleOpen}
+        handleComment={handleComment}
+      />
     ));
   };
 
   return (
     <Container>
       <ProfileModal open={open} setOpen={setOpen} user={selectedUser} />
+      <CommentModal
+        open={openComment}
+        setOpen={setComment}
+        tweet={selectedTweet}
+      />
       <div className="header">
         <h2>Home</h2>
         <Tooltip placement="right" title="Refresh">
