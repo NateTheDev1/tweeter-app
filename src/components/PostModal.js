@@ -152,16 +152,18 @@ const PostModal = ({ tweet, open, setOpen, profile }) => {
         <p>
           <Moment fromNow>{c.createdAt}</Moment>
         </p>
-        <Tooltip placement="right" title="Delete Comment">
-          <DeleteOutlined
-            onClick={() => handleDelete(c)}
-            style={{
-              marginTop: "2%",
-              fontSize: "1.5rem",
-            }}
-            className="tweet-delete"
-          />
-        </Tooltip>
+        {c.postedBy == profile.username && (
+          <Tooltip placement="right" title="Delete Comment">
+            <DeleteOutlined
+              onClick={() => handleDelete(c)}
+              style={{
+                marginTop: "2%",
+                fontSize: "1.5rem",
+              }}
+              className="tweet-delete"
+            />
+          </Tooltip>
+        )}
       </div>
     ));
   };
