@@ -21,7 +21,10 @@ export const registerUser = (formValues) => (dispatch) => {
   dispatch({ type: REGISTER_START });
 
   return axios
-    .post("https://tweeter-app-api.herokuapp.com/api/user/register", formValues)
+    .post(
+      "https://tweeter-server-cbd3449ade35.herokuapp.com/api/user/register",
+      formValues
+    )
     .then(async (res) => {
       await dispatch({ type: REGISTER_OK, payload: res.data });
       localStorage.setItem("token", res.data.token);
@@ -35,7 +38,10 @@ export const registerUser = (formValues) => (dispatch) => {
 export const loginUser = (formValues) => (dispatch) => {
   dispatch({ type: LOGIN_START });
   return axios
-    .post("https://tweeter-app-api.herokuapp.com/api/user/login", formValues)
+    .post(
+      "https://tweeter-server-cbd3449ade35.herokuapp.com/api/user/login",
+      formValues
+    )
     .then(async (res) => {
       await dispatch({ type: LOGIN_OK, payload: res.data });
       localStorage.setItem("token", res.data.token);
@@ -51,7 +57,7 @@ export const getUser = (token) => async (dispatch) => {
   let decoded = await jwt.decode(token);
   let uid = decoded._id;
   axios
-    .get(`https://tweeter-app-api.herokuapp.com/api/user/${uid}`)
+    .get(`https://tweeter-server-cbd3449ade35.herokuapp.com/api/user/${uid}`)
     .then(async (res) => {
       await dispatch({ type: SET_USER, payload: res.data });
       await dispatch({ type: LOADING, payload: false });
@@ -65,7 +71,9 @@ export const getProfile = (token) => async (dispatch) => {
   let decoded = await jwt.decode(token);
   let uid = decoded._id;
   axios
-    .get(`https://tweeter-app-api.herokuapp.com/api/user/profile/${uid}`)
+    .get(
+      `https://tweeter-server-cbd3449ade35.herokuapp.com/api/user/profile/${uid}`
+    )
     .then((res) => {
       dispatch({ type: SET_PROFILE, payload: res.data });
       localStorage.setItem("profile", JSON.stringify(res.data));
@@ -78,7 +86,7 @@ export const getProfile = (token) => async (dispatch) => {
 export const newProfile = (formValues, userId) => (dispatch) => {
   return axios
     .post(
-      `https://tweeter-app-api.herokuapp.com/api/user/profile/${userId}`,
+      `https://tweeter-server-cbd3449ade35.herokuapp.com/api/user/profile/${userId}`,
       formValues
     )
     .then(async (res) => {
@@ -106,7 +114,7 @@ export const createPost = (formValues) => async (dispatch) => {
 
   return axios
     .post(
-      `https://tweeter-app-api.herokuapp.com/api/posts/new/${userId._id}`,
+      `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/new/${userId._id}`,
       formValues
     )
     .then(async (res) => {
@@ -120,7 +128,7 @@ export const createPost = (formValues) => async (dispatch) => {
 
 export const getAllPosts = () => (dispatch) => {
   axios
-    .get("https://tweeter-app-api.herokuapp.com/api/posts/all")
+    .get("https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/all")
     .then((res) => {
       dispatch({ type: FETCH_POSTS, payload: res.data });
     })

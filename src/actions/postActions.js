@@ -3,16 +3,19 @@ import { LIKE_POST, FETCH_POSTS, UNLIKE_POST, POST_OK } from "./types";
 import jwt from "jsonwebtoken";
 
 export const likePost = (postId, userId) => (dispatch) => {
-  Axios.post(`https://tweeter-app-api.herokuapp.com/api/posts/like/${postId}`, {
-    userId: userId,
-  })
+  Axios.post(
+    `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/like/${postId}`,
+    {
+      userId: userId,
+    }
+  )
     .then((res) => {
       dispatch({ type: LIKE_POST });
     })
     .catch((err) => {
       console.log(err);
     });
-  Axios.get("https://tweeter-app-api.herokuapp.com/api/posts/all")
+  Axios.get("https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/all")
     .then((res) => {
       dispatch({ type: FETCH_POSTS, payload: res.data });
     })
@@ -23,7 +26,7 @@ export const likePost = (postId, userId) => (dispatch) => {
 
 export const unlikePost = (postId, userId) => (dispatch) => {
   Axios.post(
-    `https://tweeter-app-api.herokuapp.com/api/posts/unlike/${postId}`,
+    `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/unlike/${postId}`,
     {
       userId: userId,
     }
@@ -34,7 +37,7 @@ export const unlikePost = (postId, userId) => (dispatch) => {
     .catch((err) => {
       console.log(err);
     });
-  Axios.get("https://tweeter-app-api.herokuapp.com/api/posts/all")
+  Axios.get("https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/all")
     .then((res) => {
       dispatch({ type: FETCH_POSTS, payload: res.data });
     })
@@ -45,7 +48,7 @@ export const unlikePost = (postId, userId) => (dispatch) => {
 
 export const deletePost = (postId) => async (dispatch) => {
   await Axios.delete(
-    `https://tweeter-app-api.herokuapp.com/api/posts/${postId}`
+    `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/${postId}`
   )
     .then((res) => {
       console.log(res);
@@ -53,7 +56,7 @@ export const deletePost = (postId) => async (dispatch) => {
     .catch((err) => {
       console.log(err);
     });
-  Axios.get("https://tweeter-app-api.herokuapp.com/api/posts/all")
+  Axios.get("https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/all")
     .then((res) => {
       dispatch({ type: FETCH_POSTS, payload: res.data });
     })
@@ -67,7 +70,7 @@ export const retweet = (postValues) => async (dispatch) => {
   let userId = await jwt.decode(token);
 
   return Axios.post(
-    `https://tweeter-app-api.herokuapp.com/api/posts/new/${userId._id}`,
+    `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/new/${userId._id}`,
     postValues
   )
     .then(async (res) => {

@@ -57,7 +57,7 @@ const ProfileModal = ({ open, setOpen, user, expandable }) => {
   useEffect(() => {
     if (user !== null) {
       Axios.get(
-        `https://tweeter-app-api.herokuapp.com/api/posts/${user.account}`
+        `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/${user.account}`
       )
         .then((res) => {
           setPosts(res.data);

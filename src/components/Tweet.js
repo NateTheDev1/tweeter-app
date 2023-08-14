@@ -165,7 +165,7 @@ const Tweet = ({
 
   useEffect(() => {
     Axios.get(
-      `https://tweeter-app-api.herokuapp.com/api/user/postprofile/${tweet.postedBy}`
+      `https://tweeter-server-cbd3449ade35.herokuapp.com/api/user/postprofile/${tweet.postedBy}`
     )
       .then((res) => {
         setData(res.data);
@@ -182,7 +182,7 @@ const Tweet = ({
           setOwned(false);
         }
         Axios.get(
-          `https://tweeter-app-api.herokuapp.com/api/posts/${tweet._id}/comments`
+          `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/${tweet._id}/comments`
         )
           .then((res) => {
             setCommentCount(res.data.length);

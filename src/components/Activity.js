@@ -55,7 +55,7 @@ const Activity = ({ profile }) => {
 
   useEffect(() => {
     Axios.get(
-      `https://tweeter-app-api.herokuapp.com/api/posts/${profile.account}`
+      `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/${profile.account}`
     )
       .then(async (res) => {
         setPosts(res.data);

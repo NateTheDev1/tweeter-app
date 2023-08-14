@@ -171,7 +171,7 @@ const PostModal = ({ tweet, open, setOpen, profile }) => {
   useEffect(() => {
     if (tweet !== null) {
       Axios.get(
-        `https://tweeter-app-api.herokuapp.com/api/posts/${tweet._id}/comments`
+        `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/${tweet._id}/comments`
       )
         .then((res) => {
           setComments(res.data);
@@ -191,14 +191,14 @@ const PostModal = ({ tweet, open, setOpen, profile }) => {
       postId: tweet._id,
     };
     Axios.post(
-      "https://tweeter-app-api.herokuapp.com/api/posts/comments",
+      "https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/comments",
       newComment
     )
       .then((res) => {
         setContent("");
         if (tweet !== null) {
           Axios.get(
-            `https://tweeter-app-api.herokuapp.com/api/posts/${tweet._id}/comments`
+            `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/${tweet._id}/comments`
           )
             .then((res) => {
               setComments(res.data);
@@ -215,12 +215,12 @@ const PostModal = ({ tweet, open, setOpen, profile }) => {
 
   const handleDelete = (comment) => {
     Axios.delete(
-      `https://tweeter-app-api.herokuapp.com/api/posts/comments/${comment._id}`
+      `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/comments/${comment._id}`
     )
       .then((res) => {
         if (tweet !== null) {
           Axios.get(
-            `https://tweeter-app-api.herokuapp.com/api/posts/${tweet._id}/comments`
+            `https://tweeter-server-cbd3449ade35.herokuapp.com/api/posts/${tweet._id}/comments`
           )
             .then((res) => {
               setComments(res.data);
