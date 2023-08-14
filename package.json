@@ -24,7 +24,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "stream": "^0.0.2",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "util": "^0.12.5"
   },
   "scripts": {
     "start": "react-scripts start",
